@@ -29,5 +29,5 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add responses/
           git commit -m "Add new response file"
-          git push https://github.com/Meh-ar/simple-github-action.git
+          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Meh-ar/simple-github-action.git
 
