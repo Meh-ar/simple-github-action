@@ -2,7 +2,7 @@ name: Run GET request every 5 minutes
 
 on:
   schedule:
-    - cron: "*/5 * * * *"  # Runs every 30 minutes
+    - cron: "*/5 * * * *"  # Runs every 5 minutes
 
 jobs:
   run-get-request:
@@ -15,13 +15,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'  # Specify your Python version
+          python-version: '3.x'
 
       - name: Install requests library
         run: pip install requests
 
       - name: Run Python script
-        run: python get_posts.py
+        run: python main.py
 
       - name: Commit and push results
         run: |
