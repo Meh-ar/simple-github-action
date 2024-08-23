@@ -1,24 +1,25 @@
+import os
 import requests
-import json
 from datetime import datetime
 
-# URL to send the GET request to
+# Define the URL and directory
 url = "https://jsonplaceholder.typicode.com/posts"
+directory = "responses"
 
-# Send GET request
+# Ensure the responses directory exists
+if not os.path.exists(directory):
+    os.makedirs(directory)
+
+# Get the current timestamp to use in the filename
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+filename = os.path.join(directory, f"posts_{timestamp}.json")
+
+# Send the GET request
 response = requests.get(url)
 
-# Check if the request was successful
-if response.status_code == 200:
-    # Get the JSON data
-    data = response.json()
+# Save the response to a file
+with open(filename, 'w') as file:
+    file.write(response.text)
 
-    # Create a filename with the current timestamp
-    filename = f"responses/posts_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-
-    # Write the data to a file in JSON format
-    with open(filename, 'w') as file:
-        json.dump(data, file, indent=4)
-else:
-    print(f"Failed to retrieve data. Status code: {response.status_code}")
+print(f"Response saved to {filename}")
 
